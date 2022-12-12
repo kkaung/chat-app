@@ -1,19 +1,30 @@
 package main
 
 import (
-	"net/http"
+	"chat-app/models"
+	"chat-app/route"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello world",
-		})
-	})
+	// Middlewares
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
 
-	r.Run()
+	// Connect to database
+	models.ConnectPSQL()
+	models.ConnectRedis()
+
+	// Routes
+	route.AuthRoute(r)
+	route.UserRoute(r)
+
+	PORT := os.Getenv("PORT")
+
+	r.Run(":" + PORT)
 }
