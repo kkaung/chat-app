@@ -1,16 +1,23 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
+interface Props extends ButtonHTMLAttributes<any> {
+    isLoading?: boolean;
+}
+
 export default function SubmitButton({
     title,
     className,
+    isLoading,
     ...props
-}: ButtonHTMLAttributes<{ title: string }>) {
+}: Props) {
     return (
         <button
-            className={`${className} bg-cyan-500 px-4 py-2 rounded-md text-white hover:bg-cyan-700`}
+            className={`${className} ${
+                isLoading ? 'bg-cyan-700' : 'bg-cyan-500'
+            } px-4 py-2 rounded-md text-white hover:bg-cyan-700`}
             {...props}
         >
-            {title}
+            {isLoading ? 'Loading...' : title}
         </button>
     );
 }

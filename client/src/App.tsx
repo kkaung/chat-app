@@ -6,16 +6,31 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NoMatch from './pages/NoMatchPage';
 import Layout from './components/main/Layout';
+import Protected from './components/main/Protected';
 
 function App() {
     return (
         <>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/"
+                        element={
+                            <Protected>
+                                <Home />
+                            </Protected>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <Protected>
+                                <Profile />
+                            </Protected>
+                        }
+                    />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/profile" element={<Profile />} />
                     <Route path="*" element={<NoMatch />} />
                 </Route>
             </Routes>

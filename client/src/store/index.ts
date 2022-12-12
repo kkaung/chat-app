@@ -1,3 +1,3 @@
-import * as Auth from './AuthContext';
+import * as Auth from './Auth/AuthContext';
 
 export { Auth };

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    client:
+        build: './client'
+        ports:
+            - 3000:3000
+        volumes:
+            - ./client:/app
+    service:
+        build: './service'
+        ports:
+            - 3001:3001
+        environment:
+            PORT: 3001
+            MY_SECRET: 'my_secret'
+            REDIS_DB_URL: 'redis://default:yflmNb8T87lVfspcfaDqz8cp0P0HS3jp@redis-18004.c82.us-east-1-2.ec2.cloud.redislabs.com:18004'
+            PSQL_DB_URL: 'postgresql://doadmin:AVNS_2lHgEF2bFOM_i29vOWv@db-postgresql-syd1-55715-do-user-12994114-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require'
+        volumes:
+            - ./service:/app
+volumes:
+    chat-app:
