@@ -28,5 +28,7 @@ yarn-error.log*
 
 # live reload
 /service/tmp
-.air.toml
+/service/.air.toml
+/service/.env
+
 
