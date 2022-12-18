@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ChatProfileHead() {
@@ -13,7 +12,11 @@ export default function ChatProfileHead() {
                         className="rounded-full w-[28px] h-[28px] cursor-pointer"
                     />
                 </Link>
-                <div className="text-sm ml-1">Kaung</div>
+                <Link to="/profile">
+                    <div className="text-sm ml-1 cursor-pointer hover:underline">
+                        Kaung
+                    </div>
+                </Link>
             </div>
         </div>
     );

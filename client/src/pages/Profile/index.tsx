@@ -1,7 +1,13 @@
 import Form from '../../components/form';
+import { logoutUser } from '../../store/Auth/AuthActions';
+import { useAuth } from '../../store/Auth/AuthContext';
 
 export default function ProfilePage() {
-    const handleClick = () => {};
+    const { dispatch } = useAuth();
+
+    const handleClick = () => {
+        logoutUser(dispatch);
+    };
 
     return (
         <div>

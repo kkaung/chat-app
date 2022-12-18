@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -22,6 +22,11 @@ export default function SignupPage() {
         dispatch,
     } = useAuth();
 
+    useEffect(() => {
+        if (!isAuthenticated) return;
+        navigate('/');
+    }, [isAuthenticated, navigate]);
+
     const handleChange = (e: FormEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
         setForm((prevState: any) => {
@@ -32,8 +37,6 @@ export default function SignupPage() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         registerUser(dispatch, { username, email, password });
-
-        if (isAuthenticated) navigate('/');
     };
 
     return (

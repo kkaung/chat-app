@@ -2,7 +2,7 @@ package main
 
 import (
 	"chat-app/models"
-	"chat-app/route"
+	route "chat-app/routes"
 	"os"
 
 	"github.com/gin-contrib/cors"

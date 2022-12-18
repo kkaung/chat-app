@@ -3,7 +3,6 @@ package services
 import (
 	"chat-app/models"
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -46,7 +45,6 @@ func Register(u *models.User) error {
 func Login(u *models.User) (string, error) {
 	var err error
 
-	fmt.Println(u.Password)
 	bPass := []byte(u.Password)
 
 	fResult := models.PSQLClient.Find(&u, "email = ?", u.Email)
@@ -67,7 +65,7 @@ func Login(u *models.User) (string, error) {
 	// Get Jwt signed token
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":  "1234567890",
-		"name": u.Username,
+		"user": u,
 		"iat":  time.Now().Unix(),
 	})
 

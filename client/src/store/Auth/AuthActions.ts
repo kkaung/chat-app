@@ -22,6 +22,8 @@ async function loginUser(dispatch: Dispatch, inputs: LoginUser) {
         const res = await api.post('/auth/login', inputs);
         const token = res.data.token;
 
+        console.log(token);
+
         const user = decodeToken(token);
 
         localStorage.setItem('user', JSON.stringify(user));
@@ -35,4 +37,19 @@ async function loginUser(dispatch: Dispatch, inputs: LoginUser) {
     }
 }
 
-export { registerUser, loginUser };
+async function logoutUser(dispatch: Dispatch) {
+    try {
+        const user = JSON.parse(localStorage.getItem('user') as string);
+        if (!user) {
+            throw new Error('Unable to log out user!');
+        }
+
+        localStorage.removeItem('user');
+
+        dispatch({ type: 'LOGOUT_SUCCESS' });
+    } catch (err: any) {
+        console.error(err.message);
+    }
+}
+
+export { registerUser, loginUser, logoutUser };

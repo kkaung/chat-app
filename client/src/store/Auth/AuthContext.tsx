@@ -20,7 +20,8 @@ type Action =
       }
     | { type: 'LOGIN_PENDING' }
     | { type: 'LOGIN_SUCCESS'; payload: any }
-    | { type: 'LOGIN_FAILED'; payload: string };
+    | { type: 'LOGIN_FAILED'; payload: any }
+    | { type: 'LOGOUT_SUCCESS' };
 
 export type Dispatch = (action: Action) => void;
 type State = {
@@ -77,6 +78,9 @@ function reducer(state: State, action: Action) {
         case 'LOGIN_FAILED': {
             return { ...state, isLoading: false, message: action.payload };
         }
+        case 'LOGOUT_SUCCESS': {
+            return initialState;
+        }
         // default: {
         //     throw new Error(`Unhandled action type: ${action.type}`);
         // }
@@ -89,7 +93,9 @@ function Provider({ children }: AuthProviderProps) {
     // Check the user when the browser reloaded
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user') as string);
-        if (user) dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+        if (!user) return;
+
+        dispatch({ type: 'LOGIN_SUCCESS', payload: user });
     }, []);
 
     const value = { state, dispatch };
